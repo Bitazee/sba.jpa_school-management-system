@@ -25,7 +25,7 @@ public class StudentService implements StudentDao {
 
     @Override
     public List<StudentInterface> getAllStudents() {
-        ResultSet resultSet = dbc.executeQuery("SELECT * FROM students");
+        ResultSet resultSet = dbc.executeQuery("SELECT * FROM Student");
         try {
             return null; // TODO - Parse `List<StudentInterface>` from `resultSet`
         } catch(Exception e) {

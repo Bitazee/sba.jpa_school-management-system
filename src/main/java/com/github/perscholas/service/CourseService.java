@@ -1,26 +1,25 @@
 package com.github.perscholas.service;
 
+import com.github.perscholas.DatabaseConnection;
 import com.github.perscholas.dao.CourseDao;
 
-import com.github.perscholas.DatabaseConnection;
-import com.github.perscholas.dao.StudentDao;
 import com.github.perscholas.model.CourseInterface;
-import com.github.perscholas.model.Student;
-import com.github.perscholas.model.StudentInterface;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 // TODO - Implement respective DAO interface
 public class CourseService implements CourseDao {
+    private final DatabaseConnection dbc;
 
-    public CourseService(){
-
+    public CourseService(DatabaseConnection dbc){
+        this.dbc = dbc;
     }
-    List<Course> getAllCourses(){
-        ResultSet resultSet =
+    public CourseService(){
+        this(DatabaseConnection.UAT);
+    }
+    public List<CourseInterface> getAllCourses(){
+        ResultSet resultSet = dbc.executeQuery("SELECT * FROM Course");
+        return null;
     }
 }
