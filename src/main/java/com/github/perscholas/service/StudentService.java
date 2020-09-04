@@ -35,21 +35,39 @@ public class StudentService implements StudentDao {
 
     @Override
     public StudentInterface getStudentByEmail(String studentEmail) {
-        return null;
+        ResultSet resultSet = dbc.executeQuery("Select From students Where email = {studentEmail}");
+        try{
+            return null;
+        }
+        catch(Exception e){
+            throw new Error(e);
+        }
     }
 
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
-        return null;
+        try {
+            return null; // TODO - Parse `List<StudentInterface>` from `resultSet`
+        } catch(Exception e) {
+            throw new Error(e);
+        }
     }
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
+        try {
 
+        } catch(Exception e) {
+            throw new Error(e);
+        }
     }
 
     @Override
     public List<CourseInterface> getStudentCourses(String studentEmail) {
-        return null;
+        try {
+            return null; // TODO - Parse `List<StudentInterface>` from `resultSet`
+        } catch(Exception e) {
+            throw new Error(e);
+        }
     }
 }
