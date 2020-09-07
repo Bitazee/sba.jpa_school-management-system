@@ -5,6 +5,8 @@ import com.github.perscholas.utils.IOConsole;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by leon on 2/18/2020.
@@ -23,10 +25,11 @@ public enum DatabaseConnection implements DatabaseConnectionInterface {
     DatabaseConnection() {
         this(new ConnectionBuilder()
                 .setUser("root")
-                .setPassword("")
+                .setPassword("password")
                 .setPort(3306)
-                .setDatabaseVendor("mariadb")
-                .setHost("127.0.0.1"));
+                .setDatabaseVendor("mysql")
+                .setHost("127.0.0.1")
+                .setDatabaseName("schoolSystem"));
     }
 
     @Override
@@ -48,16 +51,17 @@ public enum DatabaseConnection implements DatabaseConnectionInterface {
 
     @Override
     public void create() {
-        String sqlStatement = null; // TODO - define statement
-        String info;
+        String sqlStatement = "Create DATABASE IF NOT EXISITS schoolSystem;";
+        String message;
         try {
-            // TODO - execute statement
-            info = "Successfully executed statement `%s`.";
+            
+            message = "Successfully executed statement `%s`.";
         } catch (Exception sqlException) {
-            info = "Failed to executed statement `%s`.";
+            message = "Failed to executed statement `%s`.";
         }
-        console.println(info, sqlStatement);
+        console.println(message, sqlStatement);
     }
+
 
     @Override
     public void drop() {
@@ -67,12 +71,43 @@ public enum DatabaseConnection implements DatabaseConnectionInterface {
     public void use() {
     }
 
+    public Statement getScrollableStatement() {
+        int resultSetType = ResultSet.TYPE_SCROLL_INSENSITIVE;
+        int resultSetConcurrency = ResultSet.CONCUR_READ_ONLY;
+        try {
+            return getDatabaseConnection().createStatement(resultSetType, resultSetConcurrency);
+        } catch (SQLException e) {
+            throw new Error(e);
+        }
+    }
+
     @Override
     public void executeStatement(String sqlStatement) {
+        String message;
+        try{
+            getScrollableStatement().executeQuery(sqlStatement);
+            message = "statement done";
+            console.print(message, sqlStatement);
+
+        }
+        catch(SQLException e){
+            message = "statment failed";
+            throw new Error(message, e);
+        }
     }
 
     @Override
     public ResultSet executeQuery(String sqlQuery) {
-        return null;
+        String message;
+        try{
+           ResultSet resultSet = getScrollableStatement().executeQuery(sqlQuery);
+           message = "Query done";
+           console.print(message, sqlQuery);
+           return resultSet;
+        }
+        catch(SQLException e){
+            message = "Query failed";
+            throw new Error(message, e);
+        }
     }
 }
