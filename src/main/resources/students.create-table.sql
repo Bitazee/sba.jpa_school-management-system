@@ -1,5 +1,5 @@
 Create TABLE Student(
-    email varChar(50),
-    name varChar(50),
-    password varChar(50)
+    email varChar(50) NOT NULL PRIMARY KEY,
+    name varChar(50) NOT NULL,
+    password varChar(50) NOT NULL
 );
