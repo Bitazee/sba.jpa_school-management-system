@@ -51,24 +51,48 @@ public enum DatabaseConnection implements DatabaseConnectionInterface {
 
     @Override
     public void create() {
-        String sqlStatement = "Create DATABASE IF NOT EXISITS schoolSystem;";
+        String createStatement = "Create DATABASE IF NOT EXISITS schoolSystem;";
         String message;
         try {
-            
+            getDatabaseEngineConnection()
+                    .prepareStatement(createStatement)
+                    .execute();
             message = "Successfully executed statement `%s`.";
         } catch (Exception sqlException) {
             message = "Failed to executed statement `%s`.";
         }
-        console.println(message, sqlStatement);
+        console.println(message, createStatement);
     }
 
 
     @Override
     public void drop() {
+        String dropStatement = "Drop DATABASE IF NOT EXISITS schoolSystem;";
+        String message;
+        try {
+            getDatabaseEngineConnection()
+                    .prepareStatement(dropStatement)
+                    .execute();
+            message = "Successfully executed statement `%s`.";
+        } catch (Exception sqlException) {
+            message = "Failed to executed statement `%s`.";
+        }
+        console.println(message, dropStatement);
     }
 
     @Override
     public void use() {
+        String useStatement = "USE DATABASE IF NOT EXISITS schoolSystem;";
+        String message;
+        try {
+            getDatabaseEngineConnection()
+                    .prepareStatement(useStatement)
+                    .execute();
+            message = "Successfully executed statement `%s`.";
+        } catch (Exception sqlException) {
+            message = "Failed to executed statement `%s`.";
+        }
+        console.println(message, useStatement);
     }
 
     public Statement getScrollableStatement() {
@@ -91,7 +115,7 @@ public enum DatabaseConnection implements DatabaseConnectionInterface {
 
         }
         catch(SQLException e){
-            message = "statment failed";
+            message = "statement failed";
             throw new Error(message, e);
         }
     }
