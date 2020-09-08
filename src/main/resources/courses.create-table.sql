@@ -1,5 +1,5 @@
 create Table Course(
-    id int not null,
-    name varchar(50),
-    instructor varchar(50)
+    id int not null Primary Key,
+    name varchar(50) Not null,
+    instructor varchar(50) Not null
 );

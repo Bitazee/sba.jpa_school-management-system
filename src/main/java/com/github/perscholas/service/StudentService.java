@@ -27,15 +27,25 @@ public class StudentService implements StudentDao {
     public List<StudentInterface> getAllStudents() {
         ResultSet resultSet = dbc.executeQuery("SELECT * FROM Student");
         try {
-            return null; // TODO - Parse `List<StudentInterface>` from `resultSet`
-        } catch(Exception e) {
+            List<StudentInterface> listOfStudents = new ArrayList<>();
+            while(resultSet.next()){
+                listOfStudents.add(
+                        new Student(
+                                resultSet.getString("email"),
+                                resultSet.getString("name"),
+                                resultSet.getString("password")
+                        )
+                );
+            }
+            return listOfStudents;
+        } catch(SQLException e) {
             throw new Error(e);
         }
     }
 
     @Override
     public StudentInterface getStudentByEmail(String studentEmail) {
-        ResultSet resultSet = dbc.executeQuery("Select From students Where email = {studentEmail}");
+        ResultSet resultSet = dbc.executeQuery("Select From Student Where email = {studentEmail}");
         try{
             return null;
         }
@@ -47,7 +57,14 @@ public class StudentService implements StudentDao {
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
         try {
-            return null; // TODO - Parse `List<StudentInterface>` from `resultSet`
+            ResultSet resultSet = dbc.executeQuery("Select From Student Where email = {studentEmail} and password = {password}");
+            if(!resultSet.next()){
+                System.out.println("Student does not exist in the database");
+                return false;
+            }
+            else{
+                return true;
+            }
         } catch(Exception e) {
             throw new Error(e);
         }

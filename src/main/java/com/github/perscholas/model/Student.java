@@ -24,6 +24,11 @@ public class Student implements  StudentInterface{
 
     List sCoures;
 
+    public Student(String email, String name, String pass){
+        sEmail = email;
+        sName = name;
+        sPass = pass;
+    }
     @Override
     public String getEmail() {
         return sEmail;
