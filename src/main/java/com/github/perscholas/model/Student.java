@@ -22,7 +22,7 @@ public class Student implements  StudentInterface{
     @Column(name = "password")
     private String sPass;
 
-    List sCoures;
+    private List<CourseInterface> sCoures;
 
     public Student(String email, String name, String pass){
         sEmail = email;
@@ -57,5 +57,13 @@ public class Student implements  StudentInterface{
     @Override
     public void setPassword(String password) {
         this.sPass = password;
+    }
+
+    public List<CourseInterface> getsCoures() {
+        return sCoures;
+    }
+
+    public void setsCoures(List<CourseInterface> sCoures) {
+        this.sCoures = sCoures;
     }
 }

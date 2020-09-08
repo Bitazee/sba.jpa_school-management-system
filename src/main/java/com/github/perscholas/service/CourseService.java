@@ -3,9 +3,12 @@ package com.github.perscholas.service;
 import com.github.perscholas.DatabaseConnection;
 import com.github.perscholas.dao.CourseDao;
 
+import com.github.perscholas.model.Course;
 import com.github.perscholas.model.CourseInterface;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO - Implement respective DAO interface
@@ -20,6 +23,17 @@ public class CourseService implements CourseDao {
     }
     public List<CourseInterface> getAllCourses(){
         ResultSet resultSet = dbc.executeQuery("SELECT * FROM Course");
-        return null;
+        try{
+            List<CourseInterface> courseList = new ArrayList<>();
+            courseList.add(new Course(
+                   resultSet.getInt("id"),
+                   resultSet.getString("name"),
+                   resultSet.getString("Instructor")
+            ));
+            return courseList;
+        }
+        catch(SQLException e) {
+            throw new Error(e);
+        }
     }
 }

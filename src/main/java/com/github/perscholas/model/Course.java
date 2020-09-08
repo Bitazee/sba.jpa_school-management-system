@@ -2,14 +2,12 @@ package com.github.perscholas.model;
 
 // TODO - Annotate and Implement respective interface and define behaviors
 
-import com.sun.javafx.beans.IDProperty;
-
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "Course")
-public class Course {
+public class Course implements CourseInterface {
 
     @Id
     @Column(name = "id")
@@ -23,11 +21,17 @@ public class Course {
     @Column(name = "name")
     private String cInstructorName;
 
-    public int getId() {
+    public Course(int cId, String cName, String cInstructorName) {
+        this.cId = cId;
+        this.cName = cName;
+        this.cInstructorName = cInstructorName;
+    }
+
+    public Integer getId() {
         return cId;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.cId = id;
     }
 
