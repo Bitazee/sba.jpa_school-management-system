@@ -72,11 +72,8 @@ public class StudentService implements StudentDao {
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
-        try {
+        List<CourseInterface> listofCourse = getStudentCourses(studentEmail);
 
-        } catch(Exception e) {
-            throw new Error(e);
-        }
     }
 
     @Override
